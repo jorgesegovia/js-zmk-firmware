@@ -4,6 +4,15 @@
 # publish as tidy GitHub Release assets and the docs links stay stable,
 # independent of the Zephyr 4.1 board id (nice_nano//zmk, mikoto@7.2//zmk).
 include:
+  # --- TEST: full-duplex wired + relocated-CS (D4) display, Mikoto new revision ---
+  # Built as workflow artifacts only (the release job is guarded to main).
+  - board: mikoto@7.2//zmk
+    shield: lily58_left nice_view_adapter nice_view wired
+    snippet: studio-rpc-usb-uart
+    artifact-name: lily58_left_wired_TEST-mikoto_7.2-zmk
+  - board: mikoto@7.2//zmk
+    shield: lily58_right nice_view_adapter nice_view wired
+    artifact-name: lily58_right_wired_TEST-mikoto_7.2-zmk
   # --- Wireless (BLE) ---
   - board: nice_nano//zmk
     shield: lily58_left

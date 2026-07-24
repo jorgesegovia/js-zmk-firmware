@@ -30,6 +30,8 @@ jobs:
 
   lily58-release:
     needs: [lily58-build, draw]
+    # Only publish from main; test branches build artifacts only.
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     permissions:
       contents: write
