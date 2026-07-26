@@ -4,17 +4,20 @@
 # publish as tidy GitHub Release assets and the docs links stay stable,
 # independent of the Zephyr 4.1 board id (nice_nano//zmk, mikoto@7.2//zmk).
 include:
-  # --- Wired (full-duplex UART) — new revision, Mikoto + nice!view (CS on D4) ---
-  # Hardware-validated: display, matrix, both encoders, full-duplex over TRRS,
-  # with BLE fallback retained. For the new full-duplex PCB revision only; the
-  # old (D1-CS, single-wire) stock keeps the wireless builds below.
+  # --- Full-duplex (fd) revision — Mikoto + nice!view (CS on D4) ---
+  # Does BOTH transports: full-duplex wired over TRRS when the cable is present,
+  # BLE otherwise. The `wired` shield just ADDS the wired option; the artifacts
+  # are named _fd because the firmware is not cable-only. Hardware-validated
+  # (display, matrix, both encoders, full-duplex + wireless fallback). For the
+  # new full-duplex PCB revision; the old (D1-CS, single-wire) stock keeps the
+  # wireless builds below.
   - board: mikoto@7.2//zmk
     shield: lily58_left nice_view_adapter nice_view wired
     snippet: studio-rpc-usb-uart
-    artifact-name: lily58_left_wired-mikoto_7.2-zmk
+    artifact-name: lily58_left_fd-mikoto_7.2-zmk
   - board: mikoto@7.2//zmk
     shield: lily58_right nice_view_adapter nice_view wired
-    artifact-name: lily58_right_wired-mikoto_7.2-zmk
+    artifact-name: lily58_right_fd-mikoto_7.2-zmk
   # --- Wireless (BLE) ---
   - board: nice_nano//zmk
     shield: lily58_left
