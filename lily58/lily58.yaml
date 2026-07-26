@@ -4,20 +4,28 @@
 # publish as tidy GitHub Release assets and the docs links stay stable,
 # independent of the Zephyr 4.1 board id (nice_nano//zmk, mikoto@7.2//zmk).
 include:
-  # --- Full-duplex (fd) revision — Mikoto + nice!view (CS on D4) ---
-  # Does BOTH transports: full-duplex wired over TRRS when the cable is present,
-  # BLE otherwise. The `wired` shield just ADDS the wired option; the artifacts
-  # are named _fd because the firmware is not cable-only. Hardware-validated
-  # (display, matrix, both encoders, full-duplex + wireless fallback). For the
-  # new full-duplex PCB revision; the old (D1-CS, single-wire) stock keeps the
-  # wireless builds below.
+  # --- New full-duplex-revision boards (nice!view CS relocated to D4) ---
+  # The current boards have no cable-detect pin, so wired can't auto-fall-back
+  # to BLE (verified on hardware). Ship TWO builds and let the user pick wired
+  # or wireless; the shared `nvcs_d4` shield carries the D4 display fix for both.
+  # A future revision with a detect-gpios pin collapses these into one firmware.
+  #
+  # Wired (full-duplex UART over TRRS; wired-only on the current boards)
   - board: mikoto@7.2//zmk
-    shield: lily58_left nice_view_adapter nice_view wired
+    shield: lily58_left nice_view_adapter nice_view nvcs_d4 wired
     snippet: studio-rpc-usb-uart
-    artifact-name: lily58_left_fd-mikoto_7.2-zmk
+    artifact-name: lily58_left_wired-mikoto_7.2-zmk
   - board: mikoto@7.2//zmk
-    shield: lily58_right nice_view_adapter nice_view wired
-    artifact-name: lily58_right_fd-mikoto_7.2-zmk
+    shield: lily58_right nice_view_adapter nice_view nvcs_d4 wired
+    artifact-name: lily58_right_wired-mikoto_7.2-zmk
+  # Wireless (BLE; new-revision display CS on D4)
+  - board: mikoto@7.2//zmk
+    shield: lily58_left nice_view_adapter nice_view nvcs_d4
+    snippet: studio-rpc-usb-uart
+    artifact-name: lily58_left_wireless-mikoto_7.2-zmk
+  - board: mikoto@7.2//zmk
+    shield: lily58_right nice_view_adapter nice_view nvcs_d4
+    artifact-name: lily58_right_wireless-mikoto_7.2-zmk
   # --- Wireless (BLE) ---
   - board: nice_nano//zmk
     shield: lily58_left

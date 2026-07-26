@@ -21,11 +21,13 @@
 };
 
 /*
- * The full-duplex revision uses D0/D1 for the UART, so the nice!view CS moved
- * off D1 (pro_micro 1, the stock nice_view_adapter default) to D4 (pro_micro 4).
- * SCK/MOSI (P0.20/P0.17) are unchanged. This must be listed AFTER the
- * `nice_view_adapter` shield so it overrides its cs-gpios.
+ * NOTE: this shield only enables the wired UART transport. The nice!view CS
+ * relocation for the full-duplex revision lives in the separate `nvcs_d4`
+ * shield, so the display fix applies to BOTH the wired and wireless builds.
+ *
+ * This ZMK build compiles BOTH BLE and wired split (wired priority 0, BLE 1),
+ * but automatic wired->BLE fallback only works when the wired-split node has a
+ * `detect-gpios` cable-detect pin. The current boards have none, so this is
+ * wired-only; add `detect-gpios` on a revision with a TRRS-detect pin to make
+ * a single firmware fall back to BLE.
  */
-&nice_view_spi {
-    cs-gpios = <&pro_micro 4 GPIO_ACTIVE_HIGH>;
-};
